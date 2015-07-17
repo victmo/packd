@@ -1,0 +1,63 @@
+<div id="list-map">
+	<div class="row">
+		<div class="header bg-primary">
+			<h1 class="pull-left">Packd</h1>
+			<form 
+				class="form-inline pull-right"
+				name="ctrl.searchTypeForm" 
+				ng-submit="ctrl.onSubmit()"
+			>
+				<div class="form-group form-group-sm">
+					<label for="input-search-type">Popular:</label>
+					<select 
+						name="search-type" 
+						class="form-control" 
+						id="input-search-type"
+						ng-model="ctrl.searchType"
+						ng-options="type.value as type.label for type in ctrl.searchTypes"
+						ng-submit="ctrl.onSubmit()"
+						required
+					>
+					</select>
+				</div>
+				<button 
+					type="submit"
+					class="btn btn-info btn-sm"
+				>
+					Search this area
+				</button>
+			</form>
+			
+		</div>
+		<div class="list">
+			<div class="venue" 
+				ng-repeat="venue in ctrl.venues" 
+				ng-click="ctrl.highlightVenue($index)"
+				ng-class="ctrl.selectedVenueIndex==$index ? 'selected' : ''"
+			>
+				<div class="rank" ng-bind="$index+1"></div>
+				<h4><a ng-bind="venue.name" ng-click="ctrl.showVenue(venue.id)"></a></h4>
+				<p class="text-muted"><span ng-bind="ctrl.now ? venue.hereNow.count : venue.stats.checkinsCount | number"></span> check-ins</p>
+			</div>
+		</div>
+
+		<div class="map">
+
+			<ui-gmap-google-map 
+					center="ctrl.map.center"
+                    control="ctrl.map.control"
+                    zoom="ctrl.map.zoom"
+                    options="{ mapTypeControl: false, streetViewControl: false }"
+                    pan="true"
+        	>
+				<ui-gmap-markers 
+					models="ctrl.map.markers" 
+					coords="'self'" 
+					click="ctrl.pinClicked"
+					icon="'icon'"
+				></ui-gmap-markers>
+        	</ui-gmap-google-map>
+
+		</div>
+	</div>
+</div>

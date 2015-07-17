@@ -1,0 +1,10 @@
+_extras/
+_extra/
+_test/
+_app/
+node_modules/
+bower_components/
+.sass-cache/
+.idea/
+.tmp/
+dist/

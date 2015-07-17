@@ -1,0 +1,58 @@
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-xs-6">
+
+			<div class="form-inline">
+				<button 
+					class="btn btn-primary"
+					ng-click="ctrl.getGeolocation()"
+				>
+					Get location
+				</button>
+
+				<input type="text" class="form-control" ng-model="ctrl.ll" placeholder="lat,long">
+
+				<button 
+					class="btn btn-default"
+					ng-click="ctrl.searchVenues(ctrl.ll)"
+				>
+					Search
+				</button>
+
+				<button 
+					class="btn btn-default"
+					ng-click="ctrl.trendingVenues(ctrl.ll)"
+				>
+					Trending
+				</button>
+			</div>
+
+
+			<hr>
+
+
+			<div class="form-inline">
+				<input type="text" class="form-control" ng-model="ctrl.venueId" placeholder="venueId">
+
+				<button 
+					class="btn btn-default"
+					ng-click="ctrl.getVenue(ctrl.venueId)"
+				>
+					Venue Details
+				</button>
+
+				<button 
+					class="btn btn-default"
+					ng-click="ctrl.getVenueStats(ctrl.venueId)"
+				>
+					Venue Stats
+				</button>
+			</div>
+		</div>
+
+
+		<div class="col-xs-6">
+			<pre>{{ctrl.data | json:'  '}}</pre>
+		</div>
+	</div>
+</div>

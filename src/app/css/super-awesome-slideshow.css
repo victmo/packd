@@ -1,0 +1,10 @@
+div[vm-super-awesome-slideshow] {
+	overflow: hidden;
+	border-radius: 10px;
+	box-shadow: 0 0 5px rgba(0,0,0,0.3);
+}
+
+div[vm-super-awesome-slideshow] > img {
+	width: 100%;
+	display: block;
+}
