@@ -109,7 +109,7 @@
 				params.intent = 'browse';
 				params.categoryId = "4d4b7105d754a06374d81259,4d4b7105d754a06376d81259"; // Food & Nightlife
 			}
-			self.venues = {};
+			self.venues = null;
 
 			FoursquareSdk.Venues[method](params, function(valid, response){
 				if(valid){

@@ -30,6 +30,11 @@
 			
 		</div>
 		<div class="list">
+			
+			<div ng-if="!ctrl.venues" class="glyphicon glyphicon-refresh glyphicon-spin"></div>
+
+			<div class="venue" ng-if="ctrl.venues.length === 0">Nothing in this area</div>
+			
 			<div class="venue" 
 				ng-repeat="venue in ctrl.venues" 
 				ng-click="ctrl.highlightVenue($index)"

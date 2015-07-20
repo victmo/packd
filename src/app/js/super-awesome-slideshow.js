@@ -32,7 +32,7 @@
 			}
 		}
 		
-		showNext(0);
+		showNext(true);
 	});
 
 })(angular.module('vm.superAwesomeSlideshow', []));
