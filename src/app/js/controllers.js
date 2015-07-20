@@ -21,7 +21,7 @@
 	app.filter('FoursquarePhotosFilter', function(){
 		return function(items){
 			return items.map(function(item){
-				return item.prefix + '600x300' + item.suffix;
+				return item.prefix + '600x400' + item.suffix;
 			});
 		};
 	});
@@ -179,11 +179,10 @@
 
 
 
-	app.controller('VenueController', function($scope, $state, $stateParams, FoursquareSdk, RouteStates) {
+	app.controller('VenueController', function($scope, $state, $stateParams, $filter, FoursquareSdk, RouteStates) {
 		var self = this;
-		self.venue = {};
-		self.harcodedPhotosResponseItems = [{"id":"5169a6bfe4b0726c30e72f5b","createdAt":1365878463,"source":{"name":"Instagram","url":"http://instagram.com"},"prefix":"https://irs0.4sqi.net/img/general/","suffix":"/620779_8yeK5SXYMlxJsWUk-S85oEjmlZf1k6x2B6Z-4B4uWpE.jpg","width":612,"height":612,"user":{"id":"620779","firstName":"Mary Elise Chavez","gender":"female","photo":{"prefix":"https://irs1.4sqi.net/img/user/","suffix":"/RJLPCRMXHWPIF3WP.jpg"}},"visibility":"public"},{"id":"5131987de4b099a39824fd06","createdAt":1362204797,"source":{"name":"Instagram","url":"http://instagram.com"},"prefix":"https://irs1.4sqi.net/img/general/","suffix":"/482607_OGZx4kjC5vwXAsLMrJXu8zdpAwJ1vujbHQ-AE5jFDw8.jpg","width":612,"height":612,"user":{"id":"482607","firstName":"Manos","lastName":"Xanthogeorgis","gender":"male","photo":{"prefix":"https://irs3.4sqi.net/img/user/","suffix":"/482607-HZXFSEYMYFZZNQLH.jpg"}},"visibility":"public"},{"id":"514bad2be4b0461808c8ffab","createdAt":1363914027,"source":{"name":"Instagram","url":"http://instagram.com"},"prefix":"https://irs3.4sqi.net/img/general/","suffix":"/11223414_xL9IoQyPcVoRdyvs1V18oEYxDBbZ_YeNj0RenOE0XBs.jpg","width":612,"height":612,"user":{"id":"11223414","firstName":"Jay","lastName":"Rogovin","gender":"male","photo":{"prefix":"https://irs0.4sqi.net/img/user/","suffix":"/0IFKX4AUG2I4PSHB.jpg"}},"visibility":"public"},{"id":"518708b4498e1f88ab49fa60","createdAt":1367804084,"source":{"name":"Instagram","url":"http://instagram.com"},"prefix":"https://irs0.4sqi.net/img/general/","suffix":"/3285739_8U1Tllwgdk8qPJnKcWhADGA6zue44tNZJSES5gR1_3U.jpg","width":612,"height":612,"user":{"id":"3285739","firstName":"Marc","lastName":"Watley","gender":"male","photo":{"prefix":"https://irs2.4sqi.net/img/user/","suffix":"/V5Y12LSZSVVX1Q5W.jpg"}},"visibility":"public"},{"id":"51368d31e4b019865c37c651","createdAt":1362529585,"source":{"name":"Instagram","url":"http://instagram.com"},"prefix":"https://irs3.4sqi.net/img/general/","suffix":"/22897_IYzfloMqxS4aGoHUTgp0A38Jfq17W6siOoAuAAz3O3I.jpg","width":612,"height":612,"user":{"id":"22897","firstName":"Stanley","lastName":"Lumax","gender":"male","photo":{"prefix":"https://irs0.4sqi.net/img/user/","suffix":"/VFTHWIPVFDZN5AIX.jpg"}},"visibility":"public"},{"id":"51882721498ea7ade6e36bdb","createdAt":1367877409,"source":{"name":"Instagram","url":"http://instagram.com"},"prefix":"https://irs3.4sqi.net/img/general/","suffix":"/37560_CfmTqGBYDoWEPLeUUpfdEpQ3u5AmPP_Dh7HDhji8i_A.jpg","width":612,"height":612,"user":{"id":"37560","firstName":"Rev","lastName":"Ciancio","gender":"male","photo":{"prefix":"https://irs1.4sqi.net/img/user/","suffix":"/2NWYC05AHMABEMFU.jpg"}},"visibility":"public"}];
-
+		self.venue = null;
+		
 		if(!FoursquareSdk.isConnected()){
 			console.log('Not connected');
 			$state.go(RouteStates.connectState);
@@ -194,7 +193,9 @@
 		}, function(valid, response){
 			if(valid){
 				self.venue = response;
-				$scope.$emit('venueLoaded', response);
+				// Only filter once, every time a venue is loaded,
+				// otherwise we'll get a digest overflow
+				self.venuePhotos = $filter('FoursquarePhotosFilter')(self.venue.photos.groups[0].items);
 			}else{
 				console.error(response.errorDetail);
 			}

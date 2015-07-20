@@ -3,28 +3,27 @@
 	app.directive('vmSuperAwesomeSlideshow', function(){
 		return {
 			template: '<img src="{{ctrl.currentImage}}" alt="">',
-			controller: 'vmSuperAwesomeSlideshowController as ctrl',
+			controller: 'VmSuperAwesomeSlideshowController as ctrl',
 			scope: {
 				images: '=vmSuperAwesomeSlideshow'
 			},
 			bindToController: true
 		};
 	});
-	app.controller('vmSuperAwesomeSlideshowController', function($timeout){
-		var self = this;
+	app.controller('VmSuperAwesomeSlideshowController', function($timeout){
+		var self = this,
+			currIndex = null
+		;
+		self.currentImage = null;
 		
-		console.log('===============');
-		console.log(self.images); // WHY IS THIS EMPTY?????????  <-------------------------------
-		
-		self.currentImage = self.images[0];
-		var currIndex = -1;
 		function showImage(n){
 			self.currentImage = self.images[n];
 			currIndex = n;
 		}
+		
 		function showNext(auto){
 			var n = currIndex + 1;
-			if(n >= self.images.length) { n = 0; }
+			if(currIndex === null || n >= self.images.length) { n = 0; }
 			showImage(n);
 			if(auto){
 				$timeout(function(){
@@ -32,7 +31,8 @@
 				}, 3000);
 			}
 		}
-		showNext(true);
+		
+		showNext(0);
 	});
 
 })(angular.module('vm.superAwesomeSlideshow', []));

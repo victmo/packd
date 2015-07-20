@@ -1,16 +1,29 @@
 <div class="container" style="height: 100vh; overflow: auto;">
 	
-	<div class="jumbotron">
-		<h1 ng-bind="ctrl.venue.name"></h1>
-		<p ng-bind="ctrl.venue.description"></p>
+	<!-- Loading -->
+	<div ng-if="!ctrl.venue" class="venue-details venue-loading">
+		<div class="glyphicon glyphicon-refresh glyphicon-spin"></div>
 	</div>
-	<h3>Address</h3>
-	<p ng-bind="ctrl.venue.location.formattedAddress.join(', ')"></p>
-	
-	<h3>Photos</h3>
-	
-	<!-- <div vm-super-awesome-slideshow="ctrl.venue.photos.groups[0].items | FoursquarePhotosFilter"></div> -->
-	<div vm-super-awesome-slideshow="ctrl.harcodedPhotosResponseItems | FoursquarePhotosFilter"></div>
+
+
+	<!-- Loaded -->
+	<div ng-if="ctrl.venue" class="venue-details">
+
+		<div class="jumbotron">
+			<h1 ng-bind="ctrl.venue.name"></h1>
+			<p ng-bind="ctrl.venue.description"></p>
+		</div>
+		
+		<h3>Address</h3>
+		<p ng-bind="ctrl.venue.location.formattedAddress.join(', ')"></p>
+		
+		<h3>Photos</h3>
+		<div vm-super-awesome-slideshow="ctrl.venuePhotos"></div>
+		
+	</div>
+
+
+
 	
 
 </div>
