@@ -51,6 +51,21 @@ body {
 	line-height: 30px;
 	font-weight: normal;
 }
+
+
+#list-map .header .options {
+	padding: 0.25em 0.5em;
+}
+#list-map .header .options * {
+	font-size: 11px;
+	opacity: 0.75;
+	color: #fff;
+	border-left: 1px solid rgba(255,255,255,0.5);
+	margin-left: 0.5em;
+	padding-left: 0.75em;
+}
+
+
 #list-map .list {
 	position: absolute;
 	top: 50px; left: 0;
